@@ -5,6 +5,7 @@ import Student from '../student/student';
 export default class StudentsList extends Component {
   state = {
     students: [],
+    search: '',
     error: null
   };
 
@@ -20,8 +21,23 @@ export default class StudentsList extends Component {
       });
   };
 
+  handleChange = async (value) => {
+    await this.setState({
+      search: value
+    });
+    StudentsService.getStudents().then((res) => {
+      let filteredStudents = res.students.filter((student) => {
+        let name = `${student.firstName.toLowerCase()} ${student.lastName.toLowerCase()}`;
+        return name.includes(this.state.search);
+      });
+      this.setState({
+        students: filteredStudents
+      });
+    });
+  };
+
   render() {
-    const { students, error } = this.state;
+    const { students, error, search } = this.state;
     const list = students.map((student) => {
       return (
         <li key={student.id}>
@@ -31,6 +47,18 @@ export default class StudentsList extends Component {
     });
     return (
       <div className='students-list-container'>
+        <div className='error'>
+          <p>{error}</p>
+        </div>
+        <input
+          type='text'
+          className='search'
+          placeholder='Search by name'
+          defaultValue={search}
+          onChange={(e) => {
+            this.handleChange(e.target.value);
+          }}
+        />
         <ul>{list}</ul>
       </div>
     );

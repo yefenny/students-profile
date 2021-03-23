@@ -87,6 +87,11 @@ ul li {
   border: 0.5px solid #ddd;
   border-bottom: none;
 }
+
+.students-list-container ul li:first-child {
+  border: 0.5px solid #ddd;
+  border-top: none;
+}
 .students-list-container ul li:last-child {
   border: 0.5px solid #ddd;
 }
@@ -128,4 +133,18 @@ ul li {
 
 .student-container ul li:last-child {
   border: none;
+}
+
+.student-container ul li:first-child {
+  border: none;
+}
+
+.students-list-container input {
+  width: 100%;
+  border-bottom: 1.8px solid black;
+  padding: 10px 10px 0;
+  font-size: 18px;
+  color: grey;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
 }

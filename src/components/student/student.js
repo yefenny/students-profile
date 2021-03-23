@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
+import StudentsService from '../../services/students-service';
 
-export default class Student extends Component {
-  defaultProps = {
-    student: {}
-  };
-
+class Student extends Component {
   render() {
+    // get object values
     const {
       pic,
       firstName,
       lastName,
       email,
       company,
-      grades
+      grades,
+      skill
     } = this.props.student;
+
     return (
       <div
         className='student-container
@@ -30,10 +30,16 @@ export default class Student extends Component {
           <ul>
             <li>Email: {email}</li>
             <li>Company: {company}</li>
-            <li> Average: {grades}</li>
+            <li>Skill: {skill}</li>
+            <li> Average: {StudentsService.getAverage(grades)}</li>
           </ul>
         </div>
       </div>
     );
   }
 }
+Student.defaultProps = {
+  student: {}
+};
+
+export default Student;
