@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import StudentsService from '../../services/students-service';
 
 class Student extends Component {
+  state = {
+    toggled: false
+  };
+  handleToggle = () => {
+    this.setState({
+      toggled: !this.state.toggled
+    });
+  };
   render() {
     // get object values
     const {
@@ -14,6 +22,10 @@ class Student extends Component {
       skill
     } = this.props.student;
 
+    const { toggled } = this.state;
+    const list = grades.map((val, index) => {
+      return <li key={index}>{` Test ${index + 1}: ${val}%`}</li>;
+    });
     return (
       <div
         className='student-container
@@ -32,7 +44,11 @@ class Student extends Component {
             <li>Company: {company}</li>
             <li>Skill: {skill}</li>
             <li> Average: {StudentsService.getAverage(grades)}</li>
+            <ul className={toggled ? 'grades' : 'hidden grades'}>{list}</ul>
           </ul>
+        </div>
+        <div className='last-side'>
+          <button onClick={this.handleToggle}>{toggled ? '-' : '+'}</button>
         </div>
       </div>
     );
